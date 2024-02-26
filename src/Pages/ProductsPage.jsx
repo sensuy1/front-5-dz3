@@ -29,13 +29,17 @@ const ProductsPage = () => {
   if (category) {
     filteredProducts = products.filter(
       (product) => product.category === category
-    ) 
+    );
   }
+
+  const handleFilterByMinPrice = (minPrice) => {
+    setSearchParams({ ...searchParams, minPrice: minPrice });
+  };
 
   const minPrice = searchParams.get("minPrice");
   if (minPrice) {
-    filteredProducts = filteredProducts.filter(
-      (product) => product.price < minPrice
+    filteredProducts = products.filter(
+      (product) => product.price > parseInt(minPrice)
     );
   }
 
@@ -44,7 +48,7 @@ const ProductsPage = () => {
       ProductsPage
       <div className="categories">
         <button onClick={() => setSearchParams({})}>Всё</button>
-        <button onClick={() => setSearchParams({minPrice: 200})}>Минимальная цена товара</button>
+        <button onClick={() => handleFilterByMinPrice(200)}>Минимальная цена: 200</button>
         {categories &&
           categories.map((category) => (
             <button
@@ -58,10 +62,13 @@ const ProductsPage = () => {
       <ul className="products">
         {filteredProducts &&
           filteredProducts.map((product) => (
-            <li key={product.id}> <Link to={`/products/${product.id}`}>{product.title}</Link> </li>
+            <li key={product.id}>
+              <Link to={`/products/${product.id}`}>{product.title}</Link>
+            </li>
           ))}
       </ul>
     </div>
   );
 };
+
 export default ProductsPage;

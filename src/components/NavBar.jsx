@@ -8,9 +8,6 @@ export default function NavBar() {
                 <li>
                     <a href="products">Товары</a>
                 </li>
-                <li>
-                    <a href="product">Товар</a>
-                </li>
             </ul>
         </nav>
     </>
